@@ -1,0 +1,19 @@
+<div class="editting">
+	<h1>Editing Book</h1>
+	<%= render "books/error_messages" %>
+	<%= form_for @book do |f| %>
+              <div class="form_book">
+			    <%= f.label :Title %><br>
+			    <%= f.text_field :title, size:"40:20" %>
+			  </div>
+              <div class="form_book">
+			    <%= f.label :Option %><br>
+			    <%= f.text_area :body, size:"39:20" %>
+			  </div>
+              <div class="form_book">
+			    <%= f.submit "Update Book", class: "btn btn-primary" %>
+			  </div>
+	<%end%>
+	<%= link_to "Show", book_path(params[:id]) %><%= link_to "Back", books_path %>
+	<p class="copyright">CopyRight Infratop.inc</p>
+</div>

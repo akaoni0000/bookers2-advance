@@ -1,0 +1,44 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xs-4">
+            <h1>User search1</h1>
+            <%= form_tag(search_path, :method => 'get') do %>
+                <%= select_tag(:option, options_for_select([["user", "1"],["book","2"]]))%> 
+                <%= select_tag(:choice, options_for_select([["あいまい検索", "1" ],["後方一致検索(最初の文字)", "2" ],["前方一致検索(最初の文字)", "3" ],["完全一致検索", "4" ]])) %>
+                <%= text_field_tag :search %>
+                <%= submit_tag 'Search' %>
+            <% end %>
+        </div>
+
+        <div class="col-xs-8">
+            <% if @user_or_book == "1"%>
+                <h1>User</h1>
+                <table>
+                    <% @users.each do |user| %>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th><%= user.name %> </th>
+                        </tr>
+                    </thead>
+                    <% end %>
+                </table>
+            <% elsif @user_or_book == "2" %>
+                <h2>book</h2>
+                <table>
+                    <% @books.each do |book| %>
+                        <thead>
+                          <tr>
+                            <th></th>
+                            <th><%= book.title %></th>
+                          </tr>
+                        </thead>
+                     <% end %>
+                </table>
+            <% else %>
+            <% end %>
+            
+        </div>
+
+    </div>
+</div>

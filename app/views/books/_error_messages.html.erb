@@ -1,0 +1,12 @@
+<div class="container">
+  <% if @book.errors.any? %>
+    <div class="alert">
+      <h2><%= pluralize(@book.errors.count, "error") %> prohibited this book from being saved:</h2>
+      <ul class="error" type="disc">
+        <% @book.errors.full_messages.each do |message| %>
+          <li class="error_message"><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+</div>

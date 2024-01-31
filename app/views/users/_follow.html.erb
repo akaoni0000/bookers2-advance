@@ -1,0 +1,30 @@
+<table class="table">
+				<thead>
+				  <tr>
+					<th>image</th><th>name</th>
+				  </tr>
+			    </thead>
+			    <tbody>
+				  <% users.each do |user| %>
+			        <tr>
+					  <td><%= attachment_image_tag user, :profile_image, size: "30x30", fallback: "no_image.jpg" %></td>
+					  <td><%= user.name %></td>
+					  <td>
+					    フォロー数:<%= user.follower.count %>
+					  </td>
+					  <td>
+					    フォロワー数:<%= user.followed.count %>
+					  <td>
+					        <% if current_user.id != user.id  %>
+					            <% if current_user.following?(user) %>
+						            <%= link_to 'フォロー外す', unfollow_path(user.id), method: :POST, remote: true   %>
+					            <% else %>
+						            <%= link_to 'フォローする', follow_path(user.id), method: :POST, remote: true %>
+					            <% end %>
+				           <%end%>
+					  </td>
+					  <td><%= link_to "Show", user_path(user.id) %></td>
+				    </tr>
+				  <%end%>
+			    </tbody>
+</table>

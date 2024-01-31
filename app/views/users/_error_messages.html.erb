@@ -1,0 +1,10 @@
+<% if @user.errors.any? %>
+    <div class="alert">
+        <h2><%= pluralize(@user.errors.count, "error") %> prohibited this book from being saved:</h2>
+          <ul>
+            <% @user.errors.full_messages.each do |message| %>
+              <li class="error"><%= message %></li>
+            <% end %>
+          </ul>
+    </div>
+<% end %>

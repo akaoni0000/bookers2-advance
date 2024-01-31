@@ -1,0 +1,101 @@
+<div class="container">
+	<div class="row">
+	    <div class="col-xs-3">
+	  
+            <h1>User info</h1>
+			<%= attachment_image_tag @user, :profile_image, size: "100x100", fallback: "no_image.jpg" %>
+			<table class="table">
+			  <tr>
+			    <th>name</th><th><%= @user.name %></th>
+			  </tr>
+			  <tr>
+			    <th>introduction</th><th><%= @user.introduction %></th>
+			  </tr>
+			  <tr>
+			    <th>follows</th>
+			    <th>
+				  <%= link_to follows_path(@user.id) do %>
+					  <%= @user.follower.count %>
+				  <%end%>
+			    </th>
+			  </tr>
+			  <tr>
+			    <th>followers</th>
+			    <th>
+				  <%= link_to followers_path(@user.id) do %>
+					  <%= @user.followed.count %>
+				  <%end%>
+			    </th>
+			  </tr>
+			</table>
+			<% if @user.id == current_user.id %>
+			  <%= link_to edit_user_path(current_user.id), class: 'btn btn-default edit_i' do%>
+			    <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+			  <%end%>
+			<%else%>
+			  <%= link_to user_path(current_user.id), class: 'btn btn-default edit_i' do%>
+			    <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+			  <%end%>
+			  <% if current_user.following?(@user) %>
+			    <%= link_to 'フォロー外す', unfollow_path(@user.id), method: :POST, class: "btn btn-primary foll"  %>
+			  <% else %>
+				<%= link_to 'フォローする', follow_path(@user.id), method: :POST, class: "btn btn-success foll"  %>
+			  <% end %>
+			<%end%>
+
+
+            <h1>New book</h1>
+			<%= form_for @book do |f| %>
+              <div class="form_book">
+			    <%= f.label :Name %><br>
+			    <%= f.text_field :title, size:"40:20" %>
+			  </div>
+              <div class="form_book">
+			    <%= f.label :Option %><br>
+			    <%= f.text_area :body, size:"39:20" %>
+			  </div>
+              <div class="form_book">
+			    <%= f.submit "Create Book", class: "btn btn-primary" %>
+			  </div>
+            <% end %>
+
+		</div>
+
+        <div class="col-xs-9">
+
+			<h1>Book detail</h1>
+			   <table class="table">
+			    <tr>
+					<td>
+						<%= link_to user_path(@books.user.id) do %>
+						　　<%= attachment_image_tag @user, :profile_image, size: "50x50", fallback: "no_image.jpg" %>
+						   <p class="name"><%= @user.name %></p>
+						<%end%>
+			    	<td>
+
+					<td>
+					　　<%= @books.title %>
+					<td>
+					<td>
+					　　<%= @books.body %>
+					<td>
+			        <% if @user.id == current_user.id %>
+						<td>
+						　　<%= link_to "Edit", edit_book_path(@books.id), class: "btn btn-success Edit_btn" %>
+						</td>
+						<td>
+						　　<%= link_to "Destroy", book_path(@books.id), class: "btn btn-danger Destroy_btn", method: :delete, data: { confirm: 'Are you sure?' } %>
+						</td>
+					<%end%>
+					<td id="favorite_<%= @books.id %>">
+					<%= render "books/favorite", book: @books %>
+					</td>
+			    <tr>
+			  </table>
+			  
+			  <div id="comment">
+				<%= render "books/comment", books: @books, comment: @comment %>
+	          </div>
+        </div>
+	</div>
+</div>

@@ -1,0 +1,37 @@
+<div class="container">
+	<div class="row">
+		<div class="col-xs-3">
+
+          <div id=information>
+		    <%= render "users/user_info", user: @user %>
+		  </div>
+		  
+			<h1>New book</h1>
+			<%= form_for @book do |f| %>
+              <div class="form_book">
+			    <%= f.label :Name %><br>
+			    <%= f.text_field :title, size:"40:20" %>
+			  </div>
+              <div class="form_book">
+			    <%= f.label :Option %><br>
+			    <%= f.text_area :body, size:"40:20" %>
+			  </div>
+              <div class="form_book">
+			    <%= f.submit "Create Book", class: "btn btn-primary" %>
+			  </div>
+            <% end %>
+          
+		  </div>
+
+		<div class="col-xs-9">
+
+			<h1>Users</h1>
+			<div id="table">
+			   <%= render "users/follow", users: @users %>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
